@@ -1,6 +1,6 @@
 README
 
-I didn't feel like writing a Makefile soooo....
+I didn't feel like writing 2 Makefiles soooo....
 
 Copy and paste:
 
