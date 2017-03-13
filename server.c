@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
 {
 	int socket_file_descriptor=0, accept_file_descriptor=0;  // initializing variables for file descriptors
 	int port_number=0, length_of_client_address=0, number_of_bytes=0;  // port number, client address length, bytes to be read/write
-	char buffer[256];
+	char server_buffer[65535];
 	struct sockaddr_in server_address, client_address;  // creating 2 structs of the sockaddr_in type defined in netinet/in.h
-	memset(buffer, 0, 256);		// Filling buffer with zeros
+	memset(server_buffer, 0, 65535);		// Filling server_buffer with zeros
 	errno =0;					// Clearing errno...which I'm going to use later for the chat comp
 	char str[INET_ADDRSTRLEN];
 	memset((char*) &server_address, 0, sizeof(server_address));
@@ -58,12 +58,12 @@ int main(int argc, char *argv[])
 	{
 		bad("ERROR on accept");
 	}
-	int i=1;
-	while(i=1)	// Runs forever or until ctrl-c is received from client or the connection is closed
+	
+	while(1)	// Runs forever or until ctrl-c is received from client or the connection is closed
 	{
 		
-		memset(buffer, 0, 256);
-		number_of_bytes = read(accept_file_descriptor,buffer,255);
+		memset(server_buffer, 0, 65535);
+		number_of_bytes = read(accept_file_descriptor,server_buffer,65535);
 
 		if (number_of_bytes < 0) 
 		{
@@ -71,9 +71,9 @@ int main(int argc, char *argv[])
 		}
 
 
-		printf("RECEIVING: %s\n",buffer);
+		printf("\nRECEIVING: %sECHOING BACK--2-->CLIENT\n......WAITING.....LISTENING....\n",server_buffer);
 //		number_of_bytes = write(accept_file_descriptor,"I got your message",18);
-		number_of_bytes = write(accept_file_descriptor,buffer,255);
+		number_of_bytes = write(accept_file_descriptor,server_buffer,65535);
 		if (number_of_bytes < 0)
 		{
 			bad("ERROR writing to socket");

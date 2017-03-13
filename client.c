@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	int number_of_bytes=0;
 	struct sockaddr_in server_address;
 	struct hostent *server;
-	char buffer[256];
+	char client_buffer[65535];
 	char str[INET_ADDRSTRLEN];
 	if (argc < 3) 
 	{
@@ -55,24 +55,24 @@ int main(int argc, char *argv[])
 
 	for(int i=15; i>0; i--) // Stops after 15 messages
 	{
-		memset(buffer, 0, 256);
-		printf("SENDING: ");
-		fgets(buffer,255,stdin);
+		memset(client_buffer, 0, 65535);
+		printf("\nSENDING: ");
+		fgets(client_buffer,65535,stdin);
 	
-		number_of_bytes = write(socket_file_descriptor,buffer,strlen(buffer));
+		number_of_bytes = write(socket_file_descriptor,client_buffer,strlen(client_buffer));
 
 		if (number_of_bytes < 0)
 		{ 
 			bad("\nAn error occurred writing to socket\n");
 		}
 
-		memset(buffer, 0, 256);
-		number_of_bytes = read(socket_file_descriptor,buffer,255);
+		memset(client_buffer, 0, 65535);
+		number_of_bytes = read(socket_file_descriptor,client_buffer,65535);
 		if (number_of_bytes < 0) 
 		{
 			bad("ERROR reading from socket");
 		}
-		printf("RECEIVING: %s\n", buffer);
+		printf("\nRECEIVING: %s\n", client_buffer);
 		
 	}
 	close(socket_file_descriptor);		// Closes file descriptor breaking the while loop in the server.c
