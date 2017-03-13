@@ -4,7 +4,7 @@
 
 #include "pocket_socket.h"	// Rickety Rickety Wrecked
 
-/* Simple server */
+/* Simple server, starts with user provided port # and IP */
 
 
 int main(int argc, char *argv[])
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 		bad("ERROR on accept");
 	}
 	int i=1;
-	while(i=1)	// Runs forever or until ctrl-c is received from client
+	while(i=1)	// Runs forever or until ctrl-c is received from client or the connection is closed
 	{
 		
 		memset(buffer, 0, 256);
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 
 	}
 
-   	close(socket_file_descriptor);	// This doesn't actually happen due to the while loop
+   	close(socket_file_descriptor);	// Does what is says :)
 
 return 0; 
 }
