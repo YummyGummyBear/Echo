@@ -12,7 +12,13 @@
 #include <arpa/inet.h>	// definitions for internet operations
 #include <ctype.h>	// functions to test and map characters
 #include <errno.h>	//  used for error handling
-int bad(char *juju);
+
+int bad(char *juju)
+{
+	fprintf(stderr,"%s\n", juju);  
+	exit(0);	// This is almost the same as return 0. I can explain more in person.
+}
+
 int validate_port (char *user_garbage)
 {
 	long int long_integer=0;
@@ -68,12 +74,6 @@ int validate_port (char *user_garbage)
 
 
 return (long_integer);
-}
-
-int bad(char *juju)
-{
-	fprintf(stderr,"%s\n", juju);  
-	exit(0);	// This is almost the same as return 0. I can explain more in person.
 }
 
 #endif
