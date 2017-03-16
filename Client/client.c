@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	int number_of_bytes=0;
 	struct sockaddr_in server_address;
 	struct hostent *server;
-	char client_buffer[65535];
+	char client_buffer[4097];
 	char str[INET_ADDRSTRLEN];
 	if (argc < 3) 
 	{
@@ -56,9 +56,9 @@ int main(int argc, char *argv[])
 
 	for(int i=15; i>0; i--) // Stops after 15 messages. Change to while(1) if you want infinite loop
 	{
-		memset(client_buffer, 0, 65535);
+		memset(client_buffer, 0, 4097);
 		printf("\nYour transmission: ");
-		fgets(client_buffer,65535,stdin);
+		fgets(client_buffer,4097,stdin);
 		number_of_bytes = write(socket_file_descriptor,client_buffer,strlen(client_buffer));
 		printf("Sending %d bytes to server\n", number_of_bytes);
 
@@ -67,8 +67,8 @@ int main(int argc, char *argv[])
 			bad("\nAn error occurred writing to socket\n");
 		}
 
-		memset(client_buffer, 0, 65535);
-		number_of_bytes = read(socket_file_descriptor,client_buffer, 65535);
+		memset(client_buffer, 0, 4097);
+		number_of_bytes = read(socket_file_descriptor,client_buffer, 4097);
 		if (number_of_bytes < 0) 
 		{
 			bad("ERROR reading from socket");
