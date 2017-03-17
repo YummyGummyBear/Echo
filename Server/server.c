@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 		bad("ERROR on accept");
 	}
 	
-	while(1)	// Runs forever or until ctrl-c is received from client or the connection is closed
+	while(1)    // Runs forever or until the connection is closed
 	{
 		
 		memset(server_buffer, 0, 4097);
@@ -72,6 +72,11 @@ int main(int argc, char *argv[])
 		}
 
 		printf("You have received %d bytes from a client\n", number_of_bytes);
+		if(number_of_bytes == 0)
+		{
+			printf("Connection has been closed\nGood bye\n");
+			break;
+		}
 		printf("\nData received: %s\n",server_buffer);
 		printf("Sending %lu bytes to client\n\n", strlen(server_buffer));
 		number_of_bytes = write(accept_file_descriptor,server_buffer, 4097);
