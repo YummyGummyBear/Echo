@@ -73,12 +73,13 @@ int main(int argc, char *argv[])
 
 		printf("You have received %d bytes from a client\n", number_of_bytes);
 		printf("\nData received: %s\n",server_buffer);
-		printf("Sending %lu bytes to client\n\nWaiting for next transmission....", strlen(server_buffer));
+		printf("Sending %lu bytes to client\n\n", strlen(server_buffer));
 		number_of_bytes = write(accept_file_descriptor,server_buffer, 4097);
 		if (number_of_bytes < 0)
 		{
 			bad("ERROR writing to socket");
 		}
+		printf("Waiting for next transmission....\n\n");
 		
 	}
 
